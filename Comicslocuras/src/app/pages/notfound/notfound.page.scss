@@ -1,4 +1,38 @@
-img {
+.not-found-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .container img {
     width: 100%;
+    max-width: 400px; /* Ajusta el tamaño de la imagen según sea necesario */
     height: auto;
-}
+  }
+  
+  .container h1 {
+    font-size: 4rem; /* Ajusta el tamaño del texto según sea necesario */
+    margin: 16px 0;
+  }
+  
+  .container h2 {
+    font-size: 2rem; /* Ajusta el tamaño del texto según sea necesario */
+    margin: 8px 0;
+  }
+  
+  .container p {
+    font-size: 1rem; /* Ajusta el tamaño del texto según sea necesario */
+    margin: 8px 0;
+  }
+  
+  ion-button {
+    margin-top: 16px;
+  }
+  

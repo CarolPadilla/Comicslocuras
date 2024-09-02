@@ -85,7 +85,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/accesorios/accesorios.module').then( m => m.AccesoriosPageModule)
   },
   {
-    path: '* *',
+    path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   }
   
