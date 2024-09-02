@@ -1,20 +1,58 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <!--icono de hamburguesa-->
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- Título de la página que incluye un logo y un icono -->
     <ion-title>
-      Blank
+      <img src="assets/img/logo.jpg" alt="ComicsLocuras Logo" class="logo">
+      ComicsLocuras
+      <ion-icon name="home"></ion-icon>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Introducción -->
+  <section class="intro-section">
+    
+    <h1><ion-icon name="flash-outline"></ion-icon>Bienvenidos a ComicsLocuras <ion-icon name="flash-outline"></ion-icon></h1>
+    <p>Vuelvete loco con todos los comics recomendados unicamente para ti.</p>
+  </section>
+ <!-- Tarjeta  que muestra información sobre un manga o comics -->
+  <!-- imagen dl comics y descripcion -->
+  <ion-card class="highlight-card">
+    <img alt="Boruto manga" src="https://th.bing.com/th/id/OIP.QoYpakW8ImfkaLu52MT9fwAAAA?rs=1&pid=ImgDetMain" />
+    <ion-card-header>
+      <ion-card-title>Boruto</ion-card-title>
+      <ion-card-subtitle>Naruto Next Generations es un manga creado por Masashi Kishimoto y Mikio Ikemoto. La historia sigue a Boruto Uzumaki, el hijo del séptimo Hokage, Naruto Uzumaki.</ion-card-subtitle>
+    </ion-card-header>
+    <!-- Contenido de la tarjeta  muestra el precio -->
+    <ion-card-content>
+      Precio $10.000
+    </ion-card-content>
+  </ion-card>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+  <!-- categoria  -->
+  <section class="models-section">
+    <!-- Título  -->
+    <h2>¿Buscas un Manga o Comics en específico?</h2>
+    <!-- Descripción de que categoria quiere elegir  -->
+    <p>Elige entre nuestras categorías.</p>
+    <!---imagen decorativa pa que se vea mas lindo-->
+    <img alt="Superman" src="https://th.bing.com/th/id/OIP.1lhn-gpIUoJzYJNMPPC2WQHaLZ?rs=1&pid=ImgDetMain" />
+    <div class="buttons-container">
+    <!--botones de manga o de comics -->
+      <ion-button shape="round" routerLink="/mangas">Mangas</ion-button>
+      <ion-button shape="round" routerLink="/comics">Comics</ion-button>
+    </div>
+  </section>
+  
+<!---pie de pagina-->
+<ion-footer collapse="fade">
+  <ion-toolbar>
+    <ion-title>ComicsLocuras</ion-title>
+  </ion-toolbar>
+</ion-footer>
+
