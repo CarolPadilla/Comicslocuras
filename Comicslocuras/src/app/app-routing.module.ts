@@ -81,7 +81,7 @@ const routes: Routes = [
   },
   {
     path: 'verperfil',
-    loadChildren: () => import('./pages/verperfil/verperfil.module').then( m => m.VerperfilPageModule)
+    loadChildren: () => import('./pages/verperfil/verperfil.module').then( m => m.VerPerfilPageModule)
   },
   {
     path: 'notfound',

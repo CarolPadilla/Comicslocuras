@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-otros',
-  templateUrl: './otros.page.html',
-  styleUrls: ['./otros.page.scss'],
+  selector: 'app-accesorios',
+  templateUrl: './accesorios.page.html',
+  styleUrls: ['./accesorios.page.scss'],
 })
 export class OtrosPage implements OnInit {
 //accesorios de comics llavero, marca pagina, estuche, lapices 
