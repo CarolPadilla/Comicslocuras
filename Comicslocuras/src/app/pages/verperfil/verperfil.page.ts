@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
-  selector: 'app-verperfil',
+  selector: 'app-ver-perfil',
   templateUrl: './verperfil.page.html',
   styleUrls: ['./verperfil.page.scss'],
 })
-export class VerperfilPage implements OnInit {
+export class VerPerfilPage implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
+  }
+  irPagina(){
+
+    this.router.navigate(['/editarperfil']);
+    this.router.navigate(['/home']);
+
   }
 
 }

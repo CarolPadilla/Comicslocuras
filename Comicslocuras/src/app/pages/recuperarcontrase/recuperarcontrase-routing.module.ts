@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { RecuperarcontrasePage } from './recuperarcontrase.page';
+import { RecuperaContraPage } from './recuperarcontrase.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: RecuperarcontrasePage
+    component: RecuperaContraPage
   }
 ];
 

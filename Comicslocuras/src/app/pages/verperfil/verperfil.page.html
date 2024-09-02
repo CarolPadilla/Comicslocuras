@@ -1,13 +1,94 @@
-<ion-header [translucent]="true">
+<!--<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>verperfil</ion-title>
+    <ion-title>
+      <ion-icon name="logo-ionitron" side="start"></ion-icon>
+      MotorSphere  
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">verperfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-card>
+    <h1>Perfil de cliente</h1>
+    <ion-card-header>
+    <h1>         
+      <ion-avatar >
+        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+    </h1> 
+    <h3>foto perfil</h3>
+      </ion-card-header>
+    <ion-card-header>
+      <ion-card-title>Datos del perfil</ion-card-title>
+    </ion-card-header>
+    <ion-card-content >
+      
+      
+      <ion-item>
+        <ion-input label="Nombre: " placeholder="ej: Carol Padilla"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Email: " type="email" placeholder="email@gmail.com"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Contraseña: " type="password" value="password"></ion-input>
+      </ion-item>
+    </ion-card-content>---->
+      <!--<ion-button color="dark" [routerLink]="['/editarperfil']" >Editar perfil </ion-button>
+      <ion-button color="dark" [routerLink]="['/home']" >volver </ion-button>--->
+      <!--<ion-button style="background-color: #fd0481; color: white; border-radius: 8px; padding: 12px 20px; font-size: 1rem; font-weight: bold;">Editar perfil</ion-button>
+<ion-button style="background-color: #fd0481; color: white; border-radius: 8px; padding: 12px 20px; font-size: 1rem; font-weight: bold;">Volver</ion-button>
+
+  </ion-card>
+</ion-content>--->
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon name="person"></ion-icon>
+      Ver Perfil
+      <ion-icon name="person"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <h1>Perfil de cliente</h1>
+    <ion-card-header>
+      <h1>         
+        <ion-avatar >
+          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+      </h1> 
+      <h3>Foto perfil</h3>
+    </ion-card-header>
+    <ion-card-header>
+      <ion-card-title>Datos del perfil</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input label="Nombre: " placeholder="ej: Carol Padilla"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Email: " type="email" placeholder="email@gmail.com"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Contraseña: " type="password" value="password"></ion-input>
+      </ion-item>
+    </ion-card-content>
+
+    <!-- Contenedor para los botones alineados -->
+    <div class="button-group">
+      <ion-button>Editar perfil</ion-button>
+      <ion-button>Volver</ion-button>
+    </div>
+
+  </ion-card>
 </ion-content>
+
+
+

@@ -1,13 +1,51 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>registro</ion-title>
+    <ion-buttons slot="start">
+      <!---icono de hamburguesa-->
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <!--titulo e icono bonito-->
+      <ion-icon name="person"></ion-icon>
+      ComicsLocuras
+      <ion-icon name="person"></ion-icon>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!--aqui parte el registro-->
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <ion-card-content>
+      <h1>Registro</h1>
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="objetoRegistro.nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="objetoRegistro.email" type="email"></ion-input>
+      </ion-item>
+      <!--metodo validar el correo--> 
+      <ion-item *ngIf="!validarEmail(objetoRegistro.email) && objetoRegistro.email">
+        <ion-label color="danger">Email inválido</ion-label>
+      </ion-item>
+    <!--lo mismo pero con la contraseña-->
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [(ngModel)]="objetoRegistro.contrasena" type="password"> <ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
+      </ion-item>
+      <!---caracteres especiales en caso de -->
+      <ion-item *ngIf="!validarContrasena(objetoRegistro.contrasena) && objetoRegistro.contrasena">
+        <ion-label color="danger">La contraseña debe tener un carácter especial</ion-label>
+      </ion-item>
+    <!---boton de registro-->
+      <ion-button expand="full" (click)="regienvia()">Registrar</ion-button>
+      <h5>¿Tienes cuenta?, <a  [routerLink]="['/login']">Inicia Sesion</a></h5>
+      
+      
+    </ion-card-content>
+  
+  </ion-card>
+ 
 </ion-content>

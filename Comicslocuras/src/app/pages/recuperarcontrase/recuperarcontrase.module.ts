@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { RecuperarcontrasePageRoutingModule } from './recuperarcontrase-routing.module';
 
-import { RecuperarcontrasePage } from './recuperarcontrase.page';
+import { RecuperaContraPage } from './recuperarcontrase.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { RecuperarcontrasePage } from './recuperarcontrase.page';
     IonicModule,
     RecuperarcontrasePageRoutingModule
   ],
-  declarations: [RecuperarcontrasePage]
+  declarations: [RecuperaContraPage]
 })
 export class RecuperarcontrasePageModule {}
