@@ -1,3 +1,80 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+  <ion-menu-toggle>
+    <ion-menu  contentId="main-content">
+     
+        <ion-header class="cabeza" >
+          <ion-toolbar>
+            
+            <ion-title>
+              <ion-icon name="home-outline"  side="start"></ion-icon>  
+              Menu
+            
+            </ion-title>
+          </ion-toolbar>
+        </ion-header>
+      <!--  menú -->
+        <ion-content class="ion-padding"> 
+        <ion-list>
+
+          <ion-item>
+            <ion-avatar slot="start">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-icon name="arrow-forward-circle" [routerLink]="'/login'"></ion-icon>
+          </ion-item>
+
+           <!--Botones-->
+          <ion-item [routerDirection]="'root'" [routerLink]="'/home'"> 
+            <ion-label>Inicio</ion-label>
+            <ion-icon name="home-outline" slot="start"></ion-icon>
+          </ion-item> 
+           <!--menu aqui va-->
+          <ion-item [routerDirection]="'root'" [routerLink]="'/nosotros'">
+            <ion-label> Nosotros </ion-label>
+            <ion-icon name="walk-outline"slot="start"></ion-icon>
+          </ion-item>
+          <ion-item [routerDirection]="'root'" [routerLink]="'/preguntas'">
+            <ion-label> Preguntas </ion-label>
+            <ion-icon name="help-outline" slot="start"></ion-icon>
+          </ion-item>
+          <ion-item [routerDirection]="'root'" [routerLink]="'/comics'">
+            <ion-label> Comics </ion-label>
+            <ion-icon name="book-outline" slot="start"></ion-icon>
+          </ion-item> 
+          <ion-item [routerDirection]="'root'" [routerLink]="'/mangas'">
+            <ion-label> Mangas </ion-label>
+            <ion-icon name="book-outline" slot="start"></ion-icon>
+          </ion-item> 
+          <ion-item [routerDirection]="'root'" [routerLink]="'/peluches'">
+            <ion-label> Peluches </ion-label>
+            <ion-icon name="happy"slot="start"></ion-icon>
+          </ion-item> 
+          <ion-item [routerDirection]="'root'" [routerLink]="'/funkopop'">
+            <ion-label> Funkopop </ion-label>
+            <ion-icon name="flower-outline"slot="start"></ion-icon>
+          </ion-item> 
+          <ion-item [routerDirection]="'root'" [routerLink]="'/otros'">
+            <ion-label> Otros </ion-label>
+            <ion-icon name="sparkles-outline"slot="start"></ion-icon>
+          </ion-item> 
+          <ion-item [routerDirection]="'root'" [routerLink]="'/carritocompras'">
+            <ion-label> Carrito de Compras </ion-label>
+            <ion-icon name="cart-outline" slot="start"></ion-icon>
+          </ion-item>
+          <ion-item [routerDirection]="'root'" [routerLink]="'/login'">
+            <ion-label> Iniciar Sesion </ion-label>
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+          </ion-item>
+  
+        </ion-list>
+     
+        </ion-content>
+  
+    </ion-menu>
+
+  </ion-menu-toggle>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+
+  
 </ion-app>
