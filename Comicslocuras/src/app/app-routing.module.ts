@@ -55,10 +55,7 @@ const routes: Routes = [
     path: 'nosotros',
     loadChildren: () => import('./pages/nosotros/nosotros.module').then( m => m.NosotrosPageModule)
   },
-  {
-    path: 'accesorios',
-    loadChildren: () => import('./pages/accesorios/accesorios.module').then( m => m.AccesoriosPageModule)
-  },
+  
   {
     path: 'peluches',
     loadChildren: () => import('./pages/peluches/peluches.module').then( m => m.PeluchesPageModule)
@@ -84,9 +81,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/verperfil/verperfil.module').then( m => m.VerPerfilPageModule)
   },
   {
-    path: 'notfound',
-    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
+    path: 'accesorios',
+    loadChildren: () => import('./pages/accesorios/accesorios.module').then( m => m.AccesoriosPageModule)
   },
+  {
+    path: '* *',
+    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
+  }
+  
+
 ];
 
 @NgModule({

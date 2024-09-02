@@ -5,9 +5,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './accesorios.page.html',
   styleUrls: ['./accesorios.page.scss'],
 })
-export class OtrosPage implements OnInit {
+export class AccesoriosPage implements OnInit {
 //accesorios de comics llavero, marca pagina, estuche, lapices 
- productos = [
+productos = [
   {
     name: 'One Piece LLavero',
     price: 4000,
@@ -56,3 +56,6 @@ export class OtrosPage implements OnInit {
   }
 
 }
+
+
+
