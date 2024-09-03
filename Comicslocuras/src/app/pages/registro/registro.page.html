@@ -1,11 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!---icono de hamburguesa-->
+      <!-- Icono de hamburguesa -->
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <!--titulo e icono bonito-->
+      <!-- Título e icono bonito -->
       <ion-icon name="person"></ion-icon>
       ComicsLocuras
       <ion-icon name="person"></ion-icon>
@@ -13,39 +13,47 @@
   </ion-toolbar>
 </ion-header>
 
-<!--aqui parte el registro-->
+<!-- Aquí parte el registro -->
 <ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-content>
       <h1>Registro</h1>
+      
+      <!-- Campo Nombre -->
       <ion-item>
         <ion-label position="floating">Nombre</ion-label>
         <ion-input [(ngModel)]="objetoRegistro.nombre"></ion-input>
       </ion-item>
+      
+      <!-- Campo Email -->
       <ion-item>
         <ion-label position="floating">Email</ion-label>
         <ion-input [(ngModel)]="objetoRegistro.email" type="email"></ion-input>
       </ion-item>
-      <!--metodo validar el correo--> 
+      
+      <!-- Validación de Email -->
       <ion-item *ngIf="!validarEmail(objetoRegistro.email) && objetoRegistro.email">
         <ion-label color="danger">Email inválido</ion-label>
       </ion-item>
-    <!--lo mismo pero con la contraseña-->
+      
+      <!-- Campo Contraseña -->
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
-        <ion-input [(ngModel)]="objetoRegistro.contrasena" type="password"> <ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
+        <ion-input [(ngModel)]="objetoRegistro.contrasena" type="password">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
       </ion-item>
-      <!---caracteres especiales en caso de -->
-      <ion-item *ngIf="!validarContrasena(objetoRegistro.contrasena) && objetoRegistro.contrasena">
-        <ion-label color="danger">La contraseña debe tener un carácter especial</ion-label>
-      </ion-item>
-    <!---boton de registro-->
-      <ion-button expand="full" (click)="regienvia()">Registrar</ion-button>
-      <h5>¿Tienes cuenta?, <a  [routerLink]="['/login']">Inicia Sesion</a></h5>
       
+      <!-- Validación de Contraseña -->
+      <ion-item *ngIf="!validarContrasena(objetoRegistro.contrasena) && objetoRegistro.contrasena">
+        <ion-label color="danger">La contraseña debe tener entre 6 y 8 caracteres y al menos un carácter especial.</ion-label>
+      </ion-item>
+      
+      <!-- Botón de Registro -->
+      <ion-button expand="full" (click)="regienvia()">Registrar</ion-button>
+      <h5>¿Tienes cuenta? <a [routerLink]="['/login']">Inicia Sesión</a></h5>
       
     </ion-card-content>
-  
   </ion-card>
- 
 </ion-content>
+
