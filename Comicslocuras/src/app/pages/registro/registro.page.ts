@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -13,7 +12,8 @@ export class RegistroPage implements OnInit {
   objetoRegistro = {
     nombre: '',
     email: '',
-    contrasena: ''
+    contrasena: '',
+    repetirContrasena: '' // Nuevo campo para repetir la contraseña
   };
 
   constructor(private router: Router, private alertController: AlertController) { }
@@ -33,9 +33,10 @@ export class RegistroPage implements OnInit {
 
   // Método para registrar al usuario, valida los datos y muestra una alerta de éxito
   registrar() {
-    if (this.validarEmail(this.objetoRegistro.email) && this.validarContrasena(this.objetoRegistro.contrasena)) {
+    if (this.formularioValido()) {
       console.log('Registro exitoso:', this.objetoRegistro);
       this.presentAlert();
+      this.navegarLogin(); // Navega al login tras registro exitoso
     } else {
       console.log('Validaciones fallidas');
       if (!this.validarEmail(this.objetoRegistro.email)) {
@@ -46,15 +47,18 @@ export class RegistroPage implements OnInit {
         console.log('Contraseña inválida. Debe tener entre 6 y 8 caracteres y al menos un carácter especial.');
         // Podrías agregar una alerta o mensaje visual aquí
       }
+      if (this.objetoRegistro.contrasena !== this.objetoRegistro.repetirContrasena) {
+        console.log('Las contraseñas no coinciden');
+        // Podrías agregar una alerta o mensaje visual aquí
+      }
     }
   }
 
-   //Método para validar el correo
+  // Método para validar el correo
   validarEmail(email: string): boolean {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailRegex = /\S+@\S+\.\S+/;
     return emailRegex.test(email);
   }
-
 
   // Método para validar la contraseña
   validarContrasena(contrasena: string): boolean {
@@ -63,19 +67,26 @@ export class RegistroPage implements OnInit {
     return longitudValida && contieneCaracterEspecial;
   }
 
+  // Método para validar el formulario completo, incluyendo la verificación de contraseñas
+  formularioValido(): boolean {
+    return this.validarEmail(this.objetoRegistro.email) &&
+           this.validarContrasena(this.objetoRegistro.contrasena) &&
+           this.objetoRegistro.contrasena === this.objetoRegistro.repetirContrasena;
+  }
+
   // Método para enviar los datos del registro y navegar al login
   regienvia() {
+    // Registra al usuario y muestra una alerta
+    this.registrar();
+  }
+
+  // Método para navegar al login
+  navegarLogin() {
     const navigationExtras: NavigationExtras = {
       state: {
         objetoRegistro: this.objetoRegistro
       }
     };
     this.router.navigate(['/login'], navigationExtras);
-    // Registra al usuario y muestra una alerta
-    this.registrar();
   }
-}
-
-function validarEmail(email: any, string: any) {
-  throw new Error('Function not implemented.');
 }

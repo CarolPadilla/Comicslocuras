@@ -43,17 +43,29 @@
           <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-input>
       </ion-item>
-      
+
+      <!-- Campo Repetir Contraseña -->
+      <ion-item>
+        <ion-label position="floating">Repetir Contraseña</ion-label>
+        <ion-input [(ngModel)]="objetoRegistro.repetirContrasena" type="password">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
       <!-- Validación de Contraseña -->
       <ion-item *ngIf="!validarContrasena(objetoRegistro.contrasena) && objetoRegistro.contrasena">
         <ion-label color="danger">La contraseña debe tener entre 6 y 8 caracteres y al menos un carácter especial.</ion-label>
       </ion-item>
+
+      <!-- Validación de coincidencia de contraseñas -->
+      <ion-item *ngIf="objetoRegistro.contrasena !== objetoRegistro.repetirContrasena && objetoRegistro.repetirContrasena">
+        <ion-label color="danger">Las contraseñas no coinciden</ion-label>
+      </ion-item>
       
       <!-- Botón de Registro -->
-      <ion-button expand="full" (click)="regienvia()">Registrar</ion-button>
+      <ion-button expand="full" (click)="registrar()" [disabled]="!formularioValido()">Registrar</ion-button>
       <h5>¿Tienes cuenta? <a [routerLink]="['/login']">Inicia Sesión</a></h5>
       
     </ion-card-content>
   </ion-card>
 </ion-content>
-
