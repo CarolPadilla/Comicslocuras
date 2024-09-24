@@ -49,11 +49,12 @@ export class RegistroPage implements OnInit {
     }
   }
 
-  // Método para validar el correo
+   //Método para validar el correo
   validarEmail(email: string): boolean {
-    const emailRegex = /\S+@\S+\.\S+/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   }
+
 
   // Método para validar la contraseña
   validarContrasena(contrasena: string): boolean {
@@ -73,4 +74,8 @@ export class RegistroPage implements OnInit {
     // Registra al usuario y muestra una alerta
     this.registrar();
   }
+}
+
+function validarEmail(email: any, string: any) {
+  throw new Error('Function not implemented.');
 }
