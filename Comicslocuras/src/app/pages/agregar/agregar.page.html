@@ -1,12 +1,8 @@
-
-
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!--icono de hamburguesa-->
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-     <!-- Título de la página con iconos decorativos -->
     <ion-title>
       <ion-icon name="accessibility"></ion-icon>
       ComicsLocuras
@@ -14,46 +10,42 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- Contenido principal de la página, ajustado al tamaño de la pantalla -->
+
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-       <!-- Título tamaño grande -->
       <ion-title size="large">Agregar Comics/Mangas/Accesorios/Peluches</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div class="form-container">
-    <h1>Agregar Nuevo Comics</h1>
+    <h1>Agregar Nuevo Comic</h1>
     <ion-item>
       <ion-label position="floating">Nombre del producto</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" name="nombre" required></ion-input>
     </ion-item>
-<!-- agregar nuevos productos -->
+    
     <ion-item>
       <ion-label position="floating">Descripción</ion-label>
-      <ion-textarea></ion-textarea>
+      <ion-textarea name="descripcion" required></ion-textarea>
     </ion-item>
-<!--url img-->
+
     <ion-item>
       <ion-label position="floating">URL de Imagen</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" name="imagen" required pattern="https?://.+"></ion-input>
     </ion-item>
-    <!---recuadro de selecion de productos-->
+
     <ion-item>
       <ion-label position="floating">Página del producto</ion-label>
-      <ion-select placeholder="Seleccionar página de destino">
+      <ion-select name="pagina" placeholder="Seleccionar página de destino" required>
         <ion-select-option value="home">Comics</ion-select-option>
         <ion-select-option value="catalog">Mangas</ion-select-option>
         <ion-select-option value="details">Funkopop</ion-select-option>
-        <ion-select-option value="details">Accesorios</ion-select-option>
-        <ion-select-option value="details">Peluches</ion-select-option>
+        <ion-select-option value="accessories">Accesorios</ion-select-option>
+        <ion-select-option value="plushies">Peluches</ion-select-option>
       </ion-select>
     </ion-item>
-    <!--boton de agregar un producto-->
-    <ion-button expand="full" style="--background: #ee0a56; --color: white;">Agregar</ion-button>
 
-
-
+    <ion-button expand="full" style="--background: #ee0a56; --color: white;" (click)="agregarProducto()">Agregar</ion-button>
   </div>
 </ion-content>
