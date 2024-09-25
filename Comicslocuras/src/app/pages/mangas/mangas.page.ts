@@ -71,6 +71,8 @@ export class MangasPage implements OnInit {
       description: '"Chainsaw Man" sigue a Denji, un cazador de demonios que obtiene poderes de motosierra y busca una vida mejor mientras enfrenta criaturas infernales.',
       image: 'assets/img/chainsawman.jpg'
     }
+
+    // Añade más productos según sea necesario
   ];
 
   constructor() {}

@@ -1,11 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!---icono de hamburguesa-->
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <!--titulo e icono bonito-->
       <ion-icon name="book"></ion-icon>
       ComicsLocuras  
       <ion-icon name="book"></ion-icon>
@@ -13,7 +11,6 @@
   </ion-toolbar>
 </ion-header>
 
- 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -21,23 +18,20 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Productos comics -->
+  <!-- Lista de Productos -->
   <section class="products-section">
     <ion-grid>
       <ion-row>
-        <!--columna para producto se adapta -->
-        <ion-col size="12" size-md="6" size-lg="4" *ngFor="let producto of products">
-          <!--aqui va la tarjeta-->
+        <ion-col size="12" size-md="6" size-lg="4" *ngFor="let product of products">
           <ion-card class="product-card">
-            <img [src]="producto.image" alt="{{producto.name}}" />
+            <img [src]="product.image" alt="{{product.name}}" />
             <ion-card-header>
-              <ion-card-title>{{ producto.name }}</ion-card-title>
-              <ion-card-subtitle>${{ producto.price }}</ion-card-subtitle>
+              <ion-card-title>{{ product.name }}</ion-card-title>
+              <ion-card-subtitle>${{ product.price }}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-              <p>{{ producto.description }}</p>
-              <ion-button expand="full" color="primary">Comprar</ion-button>
-              <!-- Botón para comprar el producto en caso de -->
+              <p>{{ product.description }}</p>
+              <ion-button expand="full" color="primary" (click)="comprarProducto(product.id)">Comprar</ion-button>
             </ion-card-content>
           </ion-card>
         </ion-col>
