@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ComicsPage implements OnInit {
 
   //productos nombre,precio,descripcion,imagen
-  products = [
+  productos = [
     {
       id: 10,
       name: 'Wolverine',
@@ -81,7 +81,7 @@ export class ComicsPage implements OnInit {
 
   // Función para manejar la compra de un producto
   comprarProducto(id: number) {
-    const productoSeleccionado = this.products.find(producto => producto.id === id);
+    const productoSeleccionado = this.productos.find(producto => producto.id === id);
     if (productoSeleccionado) {
       console.log('Producto seleccionado:', productoSeleccionado);
       // Aquí puedes agregar la lógica de compra o navegación
