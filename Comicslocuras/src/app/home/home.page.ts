@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private sqlite: SQLite) {}
 
 }
