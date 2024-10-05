@@ -87,7 +87,19 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
+  },  {
+    path: 'listar',
+    loadChildren: () => import('./pages/listar/listar.module').then( m => m.ListarPageModule)
+  },
+  {
+    path: 'modificar',
+    loadChildren: () => import('./pages/modificar/modificar.module').then( m => m.ModificarPageModule)
+  },
+  {
+    path: 'nueva',
+    loadChildren: () => import('./pages/nueva/nueva.module').then( m => m.NuevaPageModule)
   }
+
   
 
 ];

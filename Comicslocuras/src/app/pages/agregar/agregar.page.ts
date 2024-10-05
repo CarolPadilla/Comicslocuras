@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { StorageService } from 'src/app/services/servicebd.service';
+
 
 @Component({
   selector: 'app-agregar',
@@ -7,11 +9,29 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./agregar.page.scss'],
 })
 export class AgregarPage implements OnInit {
-  constructor(private alertCtrl: AlertController) {}
+ 
+  id: string = "";
+  nombre:string = "";
+  precio: string = "";
+  stock: string = "";
+  descripcion: string = "";
+  foto: string = "";
+
+  constructor(private bd: StorageService,private alertCtrl: AlertController) { }
+
+
 
   ngOnInit(): void {
     // Aquí puedes agregar lógica de inicialización si es necesario
   }
+
+
+  insertar(){
+    this.bd.insertarProducto(this.id, this.nombre,this.precio,this.stock,this.descripcion,this.foto);
+  }
+
+  
+
 
   async agregarProducto() {
     // Obtenemos los valores de los campos
