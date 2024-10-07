@@ -85,9 +85,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/accesorios/accesorios.module').then( m => m.AccesoriosPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
-  },  {
     path: 'listar',
     loadChildren: () => import('./pages/listar/listar.module').then( m => m.ListarPageModule)
   },
@@ -98,6 +95,10 @@ const routes: Routes = [
   {
     path: 'nueva',
     loadChildren: () => import('./pages/nueva/nueva.module').then( m => m.NuevaPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   }
 
   
