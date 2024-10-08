@@ -29,9 +29,6 @@ export class AgregarPage implements OnInit {
   }
 
 
-  insertar(){
-    this.bd.insertarCrud(this.id, this.nombre, this.precio, this.stock, this.descripcion, this.foto);
-  }
 
   
 
@@ -52,16 +49,20 @@ export class AgregarPage implements OnInit {
       });
       await alert.present();
       return;
+    }else{
+      const alert = await this.alertCtrl.create({
+        header: 'Éxito',
+        message: 'Producto agregado correctamente',
+        buttons: ['OK'],
+      });
+      await alert.present();
+      this.bd.insertarCrud(this.id, this.nombre, this.precio, this.stock, this.descripcion, this.foto);
+      
     }
 
     // Lógica para agregar el producto...
 
-    const alert = await this.alertCtrl.create({
-      header: 'Éxito',
-      message: 'Producto agregado correctamente',
-      buttons: ['OK'],
-    });
-    await alert.present();
+    
   }
 }
 

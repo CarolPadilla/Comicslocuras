@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { StorageService } from 'src/app/services/servicebd.service';
 
 @Component({
   selector: 'app-eliminar',
@@ -6,15 +8,47 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./eliminar.page.scss'],
 })
 export class EliminarPage implements OnInit {
-
-  nombreProducto: string = '';
-  producto: any;
-
-  constructor() { }
+  arreglocrud: any = [
+    {
+      id: '',
+      nombre: '',
+      descripcion: '',
+      imagen:'',
+      precio:'',
+      categoria:''
+    }
+  ]
+  constructor( private router:Router, private bd: StorageService) { }
 
   ngOnInit() {
+    this.bd.dbState().subscribe(data=>{
+      //validar si la bd esta lista
+      if(data){
+        //subscribir al observable de la listaNoticias
+        this.bd.fetchCrud().subscribe(res=>{
+          this.arreglocrud = res;
+        })
+      }
+    })
+  }
+  modificar(x:any){
+    let navigationsExtras: NavigationExtras = {
+      state: {
+        crud: x
+      }
+    }
+    this.router.navigate(['/editar'], navigationsExtras);
+
+  }
+  eliminar(x:any){
+    this.bd.eliminarCrud(x.idcrud);
   }
 
+  agregar(){
+    this.router.navigate(['/agregar']);
+  }
+
+/*
   buscarProducto() {
    //buscar el producto por su nombre 
     const productos = [
@@ -35,4 +69,5 @@ export class EliminarPage implements OnInit {
       this.nombreProducto = '';
     }
   }
+  */
 }

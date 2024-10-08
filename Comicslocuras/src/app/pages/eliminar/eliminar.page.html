@@ -18,7 +18,10 @@
  
   <h2 class="custom-title">Eliminar Producto Deseado</h2>
 
-  <form (ngSubmit)="buscarProducto()" #busquedaForm="ngForm">
+
+  
+
+  <!--<form (ngSubmit)="buscarProducto()" #busquedaForm="ngForm">
     <ion-item>
       <ion-label position="floating">Nombre del Producto</ion-label>
       <ion-input type="text" [(ngModel)]="nombreProducto" name="nombreProducto" required class="input-box"></ion-input>
@@ -27,64 +30,43 @@
     <div class="button-group">
       <ion-button expand="block" type="submit" class="custom-button">Buscar Producto</ion-button>
     </div>
-  </form>
+  </form>---->
 <!---nombre y precio -->
-  <ion-item *ngIf="producto">
+  <!--<ion-item *ngIf="producto">
     <ion-label>
       <h2>Producto Encontrado:</h2>
       <p>Nombre: {{ producto.nombre }}</p>
       <p>Precio: {{ producto.precio }}</p>
     </ion-label>
-  </ion-item>
+  </ion-item>-->
 <!---boton eliminar producto -->
-  <div class="button-group">
+ <!-- <div class="button-group">
     <ion-button expand="block" color="danger" (click)="eliminarProducto()" *ngIf="producto" class="danger-button">Eliminar Producto</ion-button>
-  </div>
-</ion-content>
-
-
-----------------------------------------
-
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      <img src="assets/icon/Logo.png" alt="logo">
-      <ion-icon name="logo-ionitron" slot="start"></ion-icon>
-      MotorSphere
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-
-<ion-content [fullscreen]="true">
-<ion-list>
-  <ion-item-sliding *ngFor="let x of arreglocrud">
-    <ion-item>
-      <h2>{{ x.nombre }}</h2>
-      <ion-label style="word-wrap: break-word;white-space: normal;">{{ x.descripcion }}</ion-label>
-      <ion-label style="word-wrap: break-word;white-space: normal;">{{ x.imagen}}</ion-label>
-      <ion-label style="word-wrap: break-word;white-space: normal;">{{ x.precio }}</ion-label>
-      <ion-label style="word-wrap: break-word;white-space: normal;">{{ x.categoria }}</ion-label>
-    </ion-item>
-
-    <ion-item-options side="end">
-      <ion-item-option (click)="modificar(x)">
-        <ion-icon slot="icon-only" name="pencil"></ion-icon>
-      </ion-item-option>
-      <ion-item-option color="danger" (click)="eliminar(x)">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-</ion-list>
-
-<ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button (click)="agregar()">
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-
+  </div>-->
+  <ion-list>
+    <ion-item-sliding *ngFor="let x of arreglocrud">
+      <ion-item>
+        <h2>{{ x.nombre }}</h2>
+        <ion-label style="word-wrap: break-word;white-space: normal;">{{ x.descripcion }}</ion-label>
+        <ion-label style="word-wrap: break-word;white-space: normal;">{{ x.imagen}}</ion-label>
+        <ion-label style="word-wrap: break-word;white-space: normal;">{{ x.precio }}</ion-label>
+        <ion-label style="word-wrap: break-word;white-space: normal;">{{ x.categoria }}</ion-label>
+      </ion-item>
+  
+      <ion-item-options side="end">
+        <ion-item-option (click)="modificar(x)">
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="eliminar(x)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="agregar()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
