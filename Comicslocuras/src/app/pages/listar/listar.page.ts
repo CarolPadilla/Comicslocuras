@@ -44,7 +44,7 @@ export class ListarPage implements OnInit {
   }
 
   eliminar(x: any) {
-    this.bd.eliminarProducto(x.id);  // Cambié `x.idnoticia` por `x.id`
+    this.bd.eliminarCrud(x.id);  // Cambié `x.idnoticia` por `x.id`
   }
 
   agregar() {
