@@ -27,7 +27,7 @@ export class ListarPage implements OnInit {
       // Validar si la BD está lista
       if (data) {
         // Subscribir al observable de la listaNoticias
-        this.bd.fetchCrud().subscribe(res => {
+        this.bd.fetchcrud().subscribe(res => {
           this.arregloCrud = res;
         });
       }

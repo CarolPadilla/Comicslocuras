@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
+  <div>
     <!-- Ejemplo de un producto en la lista 
     <ion-item>
       <ion-thumbnail slot="start">
@@ -54,4 +54,42 @@
     </ion-fab-button>
   </ion-fab>-->
   
+  <ion-item>
+    <ion-label position="floating">Modelo</ion-label>
+    <ion-input [(ngModel)]="crud.nombre" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Descripción</ion-label>
+    <ion-textarea [(ngModel)]="crud.descripcion"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Precio</ion-label>
+    <ion-textarea [(ngModel)]="crud.precio" inputmode="decimal"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-button (click)="takePicture()">Subir imagen</ion-button>
+    <img [src]="crud.imagen" alt="Imagen del producto" class="producto-imagen" *ngIf="crud.imagen">
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="floating">Categoría del Producto</ion-label>
+    <ion-select [(ngModel)]="crud.categoria" placeholder="Seleccionar categoría">
+      <ion-select-option value="comics">Cómics</ion-select-option>
+      <ion-select-option value="mangas">Mangas</ion-select-option>
+      <ion-select-option value="peluches">Peluches</ion-select-option>
+      <ion-select-option value="funkopop">Funko Pop</ion-select-option>
+      <ion-select-option value="accesorios">Accesorios</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+<ion-button expand="full" (click)="modificar()">Modificar</ion-button>
+<ion-button expand="full" [routerLink]="['/agregar']">Volver</ion-button>
+</div>
 </ion-content>
+
+
+
+

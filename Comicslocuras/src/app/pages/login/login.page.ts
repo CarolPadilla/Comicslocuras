@@ -83,7 +83,7 @@ export class LoginPage implements OnInit {
 
  // Redirige y muestra alerta 
     if (administrador) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/agregar']);
       this.presentAlert();
     } else if (usuarioPolado) {
       this.router.navigate(['/home']);

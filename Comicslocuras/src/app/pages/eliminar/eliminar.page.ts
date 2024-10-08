@@ -25,7 +25,7 @@ export class EliminarPage implements OnInit {
       //validar si la bd esta lista
       if(data){
         //subscribir al observable de la listaNoticias
-        this.bd.fetchCrud().subscribe(res=>{
+        this.bd.fetchcrud().subscribe(res=>{
           this.arreglocrud = res;
         })
       }

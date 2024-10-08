@@ -29,16 +29,20 @@
       <ion-label position="floating">Descripción</ion-label>
       <ion-textarea name="descripcion" required [(ngModel)]="descripcion"></ion-textarea>
     </ion-item>
-
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-textarea [(ngModel)]="precio" (ionInput)="validarPrecio($event)" inputmode="decimal"></ion-textarea>
+    </ion-item>
     <ion-item>
       <ion-label position="floating">URL de Imagen</ion-label>
-      <ion-input type="text" name="imagen" required pattern="https?://.+" [(ngModel)]="imagen"></ion-input>
+      <ion-button (click)="takePicture()"></ion-button>
+      <img [src]="imagen" alt="Imagen de producto" class="producto-imagen" *ngIf="imagen">
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Página del producto</ion-label>
           <!-- [(ngModel)]="pagina" -->
-      <ion-select            name="pagina" placeholder="Seleccionar página de destino" required>
+      <ion-select [(ngModel)]="categoria"   name="pagina" placeholder="Seleccionar página de destino" required>
         <ion-select-option value="home">Comics</ion-select-option>
         <ion-select-option value="catalog">Mangas</ion-select-option>
         <ion-select-option value="details">Funkopop</ion-select-option>
@@ -47,6 +51,8 @@
       </ion-select>
     </ion-item>
 
-    <ion-button expand="full" style="--background: #ee0a56; --color: white;" (click)="agregarProducto()">Agregar</ion-button>
+    <ion-button expand="full" style="--background: #ee0a56; --color: white;" (click)="presentAlert()">Agregar</ion-button>
+    <ion-button expand="full" [routerLink]="['/editar']" >Editar</ion-button>
+    <ion-button expand="full" [routerLink]="['/eliminar']" >Eliminar </ion-button>
   </div>
 </ion-content>
