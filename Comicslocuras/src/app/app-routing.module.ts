@@ -97,9 +97,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/nueva/nueva.module').then( m => m.NuevaPageModule)
   },
   {
+    path: 'apimarvel',
+    loadChildren: () => import('./pages/apimarvel/apimarvel.module').then( m => m.ApimarvelPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
-  }
+  },
+  
+
 
   
 
