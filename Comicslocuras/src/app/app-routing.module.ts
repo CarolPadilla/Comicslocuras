@@ -103,7 +103,11 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
+  },  {
+    path: 'flashlight',
+    loadChildren: () => import('./pages/flashlight/flashlight.module').then( m => m.FlashlightPageModule)
   },
+
   
 
 
