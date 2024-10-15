@@ -6,6 +6,6 @@ export class Usuario {
     rut_u!:string;
     fecha_nac!:string;
     id_rol!:string;
-    foto_u!:string;  
-    token!:string;      
+    foto_u!:any;  
+    token!:number;      
 }

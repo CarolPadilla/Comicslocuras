@@ -31,11 +31,10 @@ export class StorageService {
   tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY, nombre_r VARCHAR(9));";
   //tablaComuna: string = "CREATE TABLE IF NOT EXISTS comuna (id_comuna INTEGER PRIMARY KEY, nombre_c VARCHAR(9));";
   tablaCrud: string = "CREATE TABLE IF NOT EXISTS crud(idcrud INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(100) NOT NULL, descripcion VARCHAR(250) NOT NULL, imagen BLOB, precio INTEGER NOT NULL, idCategoria INTEGER NOT NULL, FOREIGN KEY(idCategoria) REFERENCES categoria(id_categoria));";
-  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, correo_u VARCHAR(20), clave_u INTEGER, rut_u INTEGER, fecha_nac DATE, foto_u VARCHAR(20), token INTEGER);";
+  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, correo_u VARCHAR(250), clave_u VARCHAR(250), rut_u  VARCHAR(20), fecha_nac VARCHAR(20), foto_u BLOB , token Number);";
   //tablaDireccion: string = "CREATE TABLE IF NOT EXISTS direccion (id_direccion INTEGER PRIMARY KEY, calle_di VARCHAR(15), numero_di INTEGER);";
   
   // Variables para los insert por defecto en nuestras tablas
-  registroUsuario: string = "INSERT OR IGNORE INTO usuario (id_usuario, correo_u, clave_u, rut_u, fecha_nac, foto_u, token) VALUES (1, 'hector@gmail.com', 123456, 123456789, '2020-01-01', 'https://avatars0.githubusercontent.com/u/329917?s=460&u=e1a8c4e8d4c0c7a9a2e5b2b7c9c8b9d0&v=4', 123456)";
   //registroDireccion: string = "INSERT OR IGNORE INTO direccion (id_direccion, calle_di, numero_di) VALUES (1, 'calle 1', 1)";
   //registroComuna: string = "INSERT OR IGNORE INTO comuna (id_comuna, nombre_c) VALUES (1, 'comuna 1')";
   registroRol: string = "INSERT OR IGNORE INTO rol (id_rol, nombre_r) VALUES (1, 'rol 1')";
@@ -46,8 +45,8 @@ export class StorageService {
   //variables para guardar los datos de las consultas en las tablas
   listadoCrud = new BehaviorSubject<Crud[]>([]);/*con esto no se necesita hacer registro insert de arriba */
 
+  listadoUsuario = new BehaviorSubject<Usuario[]>([]);
 
-  listadoUsuario = new BehaviorSubject([]);
   listadoVenta = new BehaviorSubject([]);
   listadoCategoria = new BehaviorSubject([]);
   //listadoComuna = new BehaviorSubject([]);
@@ -310,33 +309,34 @@ export class StorageService {
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   //USUARIO
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  seleccionarUsuario(id:string){
-    return this.database.executeSql('SELECT * FROM Usuario WHERE id_usuario = ?',[id]).then(res=>{      
-      //valido si trae al menos un registro
-      if(res.rows.length > 0){
-        //agrego los registros a mi lista
-        let items: Usuario = new Usuario();
-        items.id_usuario = res.rows.item(0).id_usuario;
-        items.correo_u = res.rows.item(0).correo_u;
-        items.clave_u = res.rows.item(0).clave_u;
-        items.nombre_u = res.rows.item(0).nombre_u;
-        items.rut_u = res.rows.item(0).rut_u;
-        items.fecha_nac = res.rows.item(0).fecha_nac;
-        items.id_rol = res.rows.item(0).id_rol;
-        items.foto_u = res.rows.item(0).foto_u;
-        items.token = res.rows.item(0).token;
-        //actualizar el observable
-        this.listadoUsuario.next(items as any);
+  seleccionarUsuario() {
+    return this.database.executeSql('SELECT * FROM usuario', []).then(res => {
+      let items: Usuario[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            id_usuario: res.rows.item(i).id_usuario,
+            nombre_u: res.rows.item(i).nombre_u,
+            correo_u: res.rows.item(i).correo_u,
+            foto_u: res.rows.item(i).foto_u,
+            clave_u: res.rows.item(i).clave_u,
+            id_rol: res.rows.item(i).id_rol,
+            fecha_nac: res.rows.item(i).fecha_nac,
+            rut_u: res.rows.item(i).rut_u,
+            token: res.rows.item(i).token
+
+          });
+        }
       }
-      
-    })
+      this.listadoUsuario.next(items);
+    });
   }
   
 
   eliminarUsuario(id:string){
     return this.database.executeSql('DELETE FROM usuario WHERE id_usuario = ?',[id]).then(res=>{
       this.presentAlert("Eliminar","Usuario Eliminado");
-      this.seleccionarUsuario(id);
+      this.seleccionarUsuario();
     }).catch(e=>{
       this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
     })
@@ -348,23 +348,21 @@ export class StorageService {
     this.presentAlert("service","ID: " + id);
     return this.database.executeSql('UPDATE usuario SET correo_u = ?, clave_u = ?, rut_u = ?, fecha_nac = ?, foto_u = ?, token = ?, id_rol = ? WHERE id_usuario = ?',[correo,clave,rut,fecha,foto,token,rol,id]).then(res=>{
       this.presentAlert("Modificar","Usuario Modificado");      
-      this.seleccionarUsuario(id);
+      this.seleccionarUsuario();
     }).catch(e=>{      
       this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));      
     })    
   }
   
 
-  insertarUsuario(id:string, correo:string, clave: string, rut: string, fecha: string, foto: string, token: string){
-    return this.database.executeSql('INSERT INTO usuario(id_usuario, correo_u, clave_u, rut_u, fecha_nac, foto_u, token) VALUES (?,?,?,?,?,?,?)',[id,correo,clave,rut,fecha,foto,token]).then(res=>{
+  insertarUsuario( correo:string, clave: string, rut: string, fecha: string,  token: number){
+    return this.database.executeSql('INSERT INTO usuario( correo_u, clave_u, rut_u, fecha_nac,token) VALUES (?,?,?,?,?)',[correo,clave,rut,fecha,token]).then(res=>{
       this.presentAlert("Insertar","Usuario Registrado");
-      this.seleccionarUsuario(id);
+      this.seleccionarUsuario();
     }).catch(e=>{
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
     })
   }
-
-
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   //VENTA
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
