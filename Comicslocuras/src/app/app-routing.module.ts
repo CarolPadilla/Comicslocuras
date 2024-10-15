@@ -101,9 +101,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/apimarvel/apimarvel.module').then( m => m.ApimarvelPageModule)
   },
   {
+    path: 'geolocalizacion',
+    loadChildren: () => import('./pages/geolocalizacion/geolocalizacion.module').then( m => m.GeolocalizacionPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+  
+
   
 
   
