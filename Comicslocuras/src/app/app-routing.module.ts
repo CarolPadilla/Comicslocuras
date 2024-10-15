@@ -101,10 +101,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/apimarvel/apimarvel.module').then( m => m.ApimarvelPageModule)
   },
   {
-    path: 'flashlight',
-    loadChildren: () => import('./pages/flashlight/flashlight.module').then( m => m.FlashlightPageModule)
-  },
-  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
