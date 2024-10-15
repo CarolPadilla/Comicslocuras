@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { FlashlightPage } from './flashlight.page';
+import { GeolocalizacionPage } from './geolocalizacion.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FlashlightPage
+    component: GeolocalizacionPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FlashlightPageRoutingModule {}
+export class GeolocalizacionPageRoutingModule {}

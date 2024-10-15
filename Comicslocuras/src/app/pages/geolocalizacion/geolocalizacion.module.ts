@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FlashlightPageRoutingModule } from './flashlight-routing.module';
+import { GeolocalizacionPageRoutingModule } from './geolocalizacion-routing.module';
 
-import { FlashlightPage } from './flashlight.page';
+import { GeolocalizacionPage } from './geolocalizacion.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FlashlightPageRoutingModule
+    GeolocalizacionPageRoutingModule
   ],
-  declarations: [FlashlightPage]
+  declarations: [GeolocalizacionPage]
 })
-export class FlashlightPageModule {}
+export class GeolocalizacionPageModule {}
