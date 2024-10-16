@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NavigationExtras, Router } from '@angular/router';
 @Component({
   selector: 'app-comics',
   templateUrl: './comics.page.html',
@@ -75,16 +75,25 @@ export class ComicsPage implements OnInit {
     // Añadir más productos aquí
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() { }
 
   // Función para manejar la compra de un producto
-  comprarProducto(id: number) {
+  vermasProducto(producto: any) {
+    //redirigir los datos del producto a un html interior
+    let navigationsextras: NavigationExtras = {
+      state: {
+        prod: producto
+      }
+    }
+    this.router.navigate(['/detalleproducto'], navigationsextras);
+
+    /*
     const productoSeleccionado = this.productos.find(producto => producto.id === id);
     if (productoSeleccionado) {
       console.log('Producto seleccionado:', productoSeleccionado);
       // Aquí puedes agregar la lógica de compra o navegación
-    }
+    }*/
   }
 }
