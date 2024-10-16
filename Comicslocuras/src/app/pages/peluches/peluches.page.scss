@@ -1,10 +1,9 @@
-
 /* Estilo general para ion-page y ion-content */
 .ion-page,
 ion-content {
   background-color: #000000; /* Fondo negro para la página */
   color: #ffffff; /* Texto blanco */
-  font-family: 'Comic Sans MS', cursive, sans-serif; /* Fuente estilo cómic */
+  font-family: 'Comic Sans MS', sans-serif; /* Fuente estilo cómic (sin cursiva) */
   height: 100%;
   margin: 0;
   padding: 0;
@@ -52,7 +51,7 @@ ion-title[size="large"] {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada para profundidad */
   margin: 20px 0; /* Espacio alrededor de la tarjeta */
   transition: transform 0.3s, box-shadow 0.3s; /* Transiciones suaves para el efecto hover */
-  font-family: 'Comic Sans MS', cursive, sans-serif; /* Fuente estilo cómic para las tarjetas */
+  font-family: 'Comic Sans MS', sans-serif; /* Fuente estilo cómic (sin cursiva) para las tarjetas */
 }
 
 .product-card:hover {
@@ -86,6 +85,7 @@ ion-card-content p {
   color: #ffffff; /* Texto blanco */
   font-size: 1em; /* Tamaño de fuente para el párrafo */
   margin-bottom: 10px; /* Espacio debajo del párrafo */
+  font-family: 'Comic Sans MS', sans-serif; /* Fuente estilo cómic (sin cursiva) para el contenido */
 }
 
 /* Estilo para los botones */
@@ -96,8 +96,9 @@ ion-button {
   border-radius: 5px;
   padding: 10px 20px; /* Espaciado interno */
   margin: 5px 0; /* Espacio alrededor del botón */
-  font-family: 'Comic Sans MS', cursive, sans-serif; /* Fuente estilo cómic para los botones */
+  font-family: 'Comic Sans MS', sans-serif; /* Fuente estilo cómic (sin cursiva) para los botones */
 }
+
 
 
 
