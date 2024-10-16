@@ -37,7 +37,7 @@ export class StorageService {
   tablaComuna: string = "CREATE TABLE IF NOT EXISTS comuna (id_comuna INTEGER PRIMARY KEY, nombre_c VARCHAR(9));";
   tablaCrud: string = "CREATE TABLE IF NOT EXISTS crud(idcrud INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(100) NOT NULL, descripcion VARCHAR(250) NOT NULL, imagen BLOB, precio INTEGER NOT NULL, idCategoria INTEGER NOT NULL, FOREIGN KEY(idCategoria) REFERENCES categoria(id_categoria));";
   
-  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, correo_u VARCHAR(250), clave_u VARCHAR(250), rut_u  VARCHAR(20), fecha_nac VARCHAR(20), foto_u BLOB , token Number);";
+  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (nombre_u varchar(250),id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, correo_u VARCHAR(250), clave_u VARCHAR(250), rut_u  VARCHAR(20), fecha_nac VARCHAR(20), foto_u BLOB , token Number);";
   tablaDireccion: string = "CREATE TABLE IF NOT EXISTS direccion (id_direccion INTEGER PRIMARY KEY, calle_di VARCHAR(15), numero_di INTEGER);";
   
   // Variables para los insert por defecto en nuestras tablas
@@ -370,9 +370,9 @@ login(correo:string, clave: string){
 
 
 
-  modificarUsuario(id:string, correo:string, clave: string, rut: string, fecha: string, foto: string, token: string, rol: string){
+  modificarUsuario( nombre:string, id:string, correo:string, clave: string, rut: string, fecha: string, foto: string, token: string, rol: string){
     this.presentAlert("service","ID: " + id);
-    return this.database.executeSql('UPDATE usuario SET correo_u = ?, clave_u = ?, rut_u = ?, fecha_nac = ?, foto_u = ?, token = ?, id_rol = ? WHERE id_usuario = ?',[correo,clave,rut,fecha,foto,token,rol,id]).then(res=>{
+    return this.database.executeSql('UPDATE usuario SET nombre_u = ?,correo_u = ?, clave_u = ?, rut_u = ?, fecha_nac = ?, foto_u = ?, token = ?, id_rol = ? WHERE id_usuario = ?',[nombre,correo,clave,rut,fecha,foto,token,rol,id]).then(res=>{
       this.presentAlert("Modificar","Usuario Modificado");      
       this.seleccionarUsuario();
     }).catch(e=>{      
@@ -381,8 +381,8 @@ login(correo:string, clave: string){
   }
   
 
-  insertarUsuario(rut: string, correo:string, clave: string){
-    return this.database.executeSql('INSERT INTO usuario( rut_u, correo_u, clave_u) VALUES (?,?,?)',[rut,correo,clave]).then(res=>{
+  insertarUsuario(nombre:string, correo:string, clave: string){
+    return this.database.executeSql('INSERT INTO usuario( nombre_u, correo_u, clave_u) VALUES (?,?,?)',[nombre,correo,clave]).then(res=>{
       this.presentAlert("Insertar","Usuario Registrado");
       //this.seleccionarUsuario();
     }).catch(e=>{

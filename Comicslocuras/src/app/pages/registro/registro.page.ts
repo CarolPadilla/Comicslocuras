@@ -11,7 +11,7 @@ import { StorageService } from 'src/app/services/servicebd.service'; // Asegúra
 export class RegistroPage implements OnInit {
   // Objeto que almacena los datos del registro del usuario
   objetoRegistro = {
-    rut: '',
+    nombre: '',
     email: '',
     contrasena: '',
     repetirContrasena: '',// Nuevo campo para repetir la contraseña
@@ -36,7 +36,7 @@ export class RegistroPage implements OnInit {
   registrar() {
     if (this.formularioValido()) {
       // Llama a insertarUsuario de tu servicio
-      this.bd.insertarUsuario(this.objetoRegistro.rut, this.objetoRegistro.email, this.objetoRegistro.contrasena);
+      this.bd.insertarUsuario(this.objetoRegistro.nombre, this.objetoRegistro.email, this.objetoRegistro.contrasena);
       
       //console.log('Registro exitoso:', this.objetoRegistro);
       //this.presentAlert();
