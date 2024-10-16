@@ -1,28 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      <ion-icon name="book"></ion-icon>
-      Funkopop  
-      <ion-icon name="book"></ion-icon>
-    </ion-title>
+    <ion-title>detalleproducto</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Funkopop</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <!-- Lista de Productos -->
+<ion-content [fullscreen]="true">
   <section class="products-section">
     <ion-grid>
       <ion-row>
-        <ion-col size="12" size-md="6" size-lg="4" *ngFor="let producto of productos">
+        <ion-col size="12" size-md="6" size-lg="4">
           <ion-card class="product-card">
             <img [src]="producto.image" alt="{{producto.name}}" />
             <ion-card-header>
@@ -33,7 +19,7 @@
             <ion-card-content>
               <p>{{ producto.description }}</p>
               <!-- Utilización de ID del producto -->
-              <ion-button expand="full" color="primary" (click)="vermasProducto(producto)">Ver Más</ion-button>
+              <ion-button expand="full" color="primary">Comprar</ion-button>
             </ion-card-content>
           </ion-card>
         </ion-col>
