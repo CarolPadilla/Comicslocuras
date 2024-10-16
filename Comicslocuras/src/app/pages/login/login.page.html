@@ -21,17 +21,17 @@
         <!-- campo de entrada  email -->
       <ion-item>
         <ion-label position="floating">Email</ion-label>
-        <ion-input [(ngModel)]="formData.email" type="email"></ion-input>
+        <ion-input [(ngModel)]="correo" type="email"></ion-input>
       </ion-item>
       <!---lo mismo pero con la contraselña-->
 
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
-        <ion-input [(ngModel)]="formData.contrasena" type="password"> <ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
+        <ion-input [(ngModel)]="clave" type="password"> <ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
         
       </ion-item>
 <!--aqui va el boton para que ingreses-->
-      <ion-button expand="full" (click)="registrar()">Ingresar</ion-button>
+      <ion-button expand="full" (click)="ingresar()">Ingresar</ion-button>
 
       
     

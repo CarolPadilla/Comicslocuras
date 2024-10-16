@@ -7,10 +7,11 @@ import { Crud } from './crud';
 import { Usuario } from './usuario';
 import { Venta } from './venta';
 import { Categoria } from './categoria';
-//import { Comuna } from './comuna';
+import { Comuna } from './comuna';
 import { Rol } from './rol';
-//import { Direccion } from './direccion';
+import { Direccion } from './direccion';
 import { Detalle } from './detalle';
+
 
 
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -26,17 +27,22 @@ export class StorageService {
 
   /// Variable creación tablas
   tablaCategoria: string = "CREATE TABLE IF NOT EXISTS categoria (id_categoria INTEGER PRIMARY KEY, nombre_ca VARCHAR(12));";
+  
   tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY, cantidad_d INTEGER, total_d INTEGER);";
+  
   tablaVenta: string = "CREATE TABLE IF NOT EXISTS venta (id_venta INTEGER PRIMARY KEY, fec_venta DATE, carrito_v VARCHAR(9), total_v INTEGER);";
+
   tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY, nombre_r VARCHAR(9));";
-  //tablaComuna: string = "CREATE TABLE IF NOT EXISTS comuna (id_comuna INTEGER PRIMARY KEY, nombre_c VARCHAR(9));";
+
+  tablaComuna: string = "CREATE TABLE IF NOT EXISTS comuna (id_comuna INTEGER PRIMARY KEY, nombre_c VARCHAR(9));";
   tablaCrud: string = "CREATE TABLE IF NOT EXISTS crud(idcrud INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(100) NOT NULL, descripcion VARCHAR(250) NOT NULL, imagen BLOB, precio INTEGER NOT NULL, idCategoria INTEGER NOT NULL, FOREIGN KEY(idCategoria) REFERENCES categoria(id_categoria));";
+  
   tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, correo_u VARCHAR(250), clave_u VARCHAR(250), rut_u  VARCHAR(20), fecha_nac VARCHAR(20), foto_u BLOB , token Number);";
-  //tablaDireccion: string = "CREATE TABLE IF NOT EXISTS direccion (id_direccion INTEGER PRIMARY KEY, calle_di VARCHAR(15), numero_di INTEGER);";
+  tablaDireccion: string = "CREATE TABLE IF NOT EXISTS direccion (id_direccion INTEGER PRIMARY KEY, calle_di VARCHAR(15), numero_di INTEGER);";
   
   // Variables para los insert por defecto en nuestras tablas
-  //registroDireccion: string = "INSERT OR IGNORE INTO direccion (id_direccion, calle_di, numero_di) VALUES (1, 'calle 1', 1)";
-  //registroComuna: string = "INSERT OR IGNORE INTO comuna (id_comuna, nombre_c) VALUES (1, 'comuna 1')";
+  registroDireccion: string = "INSERT OR IGNORE INTO direccion (id_direccion, calle_di, numero_di) VALUES (1, 'calle 1', 1)";
+  registroComuna: string = "INSERT OR IGNORE INTO comuna (id_comuna, nombre_c) VALUES (1, 'comuna 1')";
   registroRol: string = "INSERT OR IGNORE INTO rol (id_rol, nombre_r) VALUES (1, 'rol 1')";
   registroVenta: string = "INSERT OR IGNORE INTO venta (id_venta, fec_venta, carrito_v, total_v) VALUES (1, '2020-01-01', 'carrito 1', 100)";
   registroDetalle: string = "INSERT OR IGNORE INTO detalle (id_detalle, cantidad_d, total_d) VALUES (1, 1, 100)";
@@ -49,9 +55,9 @@ export class StorageService {
 
   listadoVenta = new BehaviorSubject([]);
   listadoCategoria = new BehaviorSubject([]);
-  //listadoComuna = new BehaviorSubject([]);
+  listadoComuna = new BehaviorSubject([]);
   listadoRol = new BehaviorSubject([]);
-  //listadoDireccion = new BehaviorSubject([]);
+  listadoDireccion = new BehaviorSubject([]);
   listadoDetalle = new BehaviorSubject([]);
   
   //variable para el status de la Base de datos
@@ -59,9 +65,9 @@ export class StorageService {
   private isDBReadyUsuario: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private isDBReadyVenta: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private isDBReadyCategoria: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  //private isDBReadyComuna: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private isDBReadyComuna: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private isDBReadyRol: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  //private isDBReadyDireccion: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private isDBReadyDireccion: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private isDBReadyDetalle: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController) {
@@ -69,9 +75,9 @@ export class StorageService {
     this.createBDUsuario(); /*creacion de la base de datos*/
     this.createBDVenta(); /*creacion de la base de datos*/
     this.createBDCategoria(); /*creacion de la base de datos*/
-    //this.createBDComuna(); /*creacion de la base de datos*/
+    this.createBDComuna(); /*creacion de la base de datos*/
     this.createBDRol(); /*creacion de la base de datos*/
-    //this.createBDDireccion(); /*creacion de la base de datos*/    
+    this.createBDDireccion(); /*creacion de la base de datos*/    
     this.createBDDetalle(); /*creacion de la base de datos*/
 
   }
@@ -104,17 +110,17 @@ export class StorageService {
     return this.listadoCategoria.asObservable();
   }
 
- // fetchComuna(): Observable<Comuna[]>{
-   // return this.listadoComuna.asObservable();
-  //}
+  fetchComuna(): Observable<Comuna[]>{
+    return this.listadoComuna.asObservable();
+  }
 
   fetchRol(): Observable<Rol[]>{
     return this.listadoRol.asObservable();
   }
 
-  //fetchDireccion(): Observable<Direccion[]>{
-    //return this.listadoDireccion.asObservable();
-  //}
+  fetchDireccion(): Observable<Direccion[]>{
+    return this.listadoDireccion.asObservable();
+  }
 
   fetchDetalle(): Observable<Detalle[]>{
     return this.listadoDetalle.asObservable();
@@ -188,17 +194,17 @@ export class StorageService {
 
   
 ///////////////////////COMUNA
-  //createBDComuna(){
-    //this.sqlite.create({
-      //name: 'comuna.db',
-      //location: 'default'
-    //}).then((db: SQLiteObject)=>{
-      //this.database = db;
-      //this.crearTablas();
-    //}).catch(e=>{
-      //this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
-   // })
-  //}
+  createBDComuna(){
+    this.sqlite.create({
+      name: 'comuna.db',
+      location: 'default'
+    }).then((db: SQLiteObject)=>{
+      this.database = db;
+      this.crearTablas();
+    }).catch(e=>{
+      this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
+    })
+  }
 
   
 ///////////////////////ROL
@@ -216,17 +222,17 @@ export class StorageService {
 
   
 ///////////////////////DIRECCION
-  //createBDDireccion(){
-    //this.sqlite.create({
-     // name: 'direccion.db',
-     // location: 'default'
-    //}).then((db: SQLiteObject)=>{
-     // this.database = db;
-      //this.crearTablas();
-    //}).catch(e=>{
-      //this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
-    //})
-  //}
+  createBDDireccion(){
+    this.sqlite.create({
+      name: 'direccion.db',
+      location: 'default'
+    }).then((db: SQLiteObject)=>{
+      this.database = db;
+      this.crearTablas();
+    }).catch(e=>{
+      this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
+    })
+  }
 
   
 ///////////////////////DETALLE
@@ -331,7 +337,27 @@ export class StorageService {
       this.listadoUsuario.next(items);
     });
   }
-  
+  codigo: number = 1;
+login(correo:string, clave: string){
+  this.database.executeSql('SELECT * FROM usuario WHERE correo_u = ? and clave_u = ?', [correo, clave]).then(res => {
+    let items: Usuario[] = [];
+    let c;
+    if (res.rows.length > 0) {
+      this.presentAlert("Login", "Bienvenido al sistema");
+      for (var i = 0; i < res.rows.length; i++) {
+        this.codigo = res.rows.item(i).id_usuario;
+      }
+    }
+    else{
+      this.presentAlert("Login", "Usuario o Clave incorrecta");
+      this.codigo = 0;
+    }
+    
+  });
+
+  //this.presentAlert("a","aqui");
+  return this.codigo;
+}
 
   eliminarUsuario(id:string){
     return this.database.executeSql('DELETE FROM usuario WHERE id_usuario = ?',[id]).then(res=>{
@@ -355,10 +381,10 @@ export class StorageService {
   }
   
 
-  insertarUsuario( correo:string, clave: string, rut: string, fecha: string,  token: number){
-    return this.database.executeSql('INSERT INTO usuario( correo_u, clave_u, rut_u, fecha_nac,token) VALUES (?,?,?,?,?)',[correo,clave,rut,fecha,token]).then(res=>{
+  insertarUsuario(rut: string, correo:string, clave: string){
+    return this.database.executeSql('INSERT INTO usuario( rut_u, correo_u, clave_u) VALUES (?,?,?)',[rut,correo,clave]).then(res=>{
       this.presentAlert("Insertar","Usuario Registrado");
-      this.seleccionarUsuario();
+      //this.seleccionarUsuario();
     }).catch(e=>{
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
     })
@@ -484,59 +510,59 @@ export class StorageService {
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   //COMUNA
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  //seleccionarComuna(){
-    //return this.database.executeSql('SELECT * FROM Comuna', []).then(res=>{
+  seleccionarComuna(){
+    return this.database.executeSql('SELECT * FROM Comuna', []).then(res=>{
        //variable para almacenar el resultado de la consulta
-       //let items: Comuna[] = [];
+       let items: Comuna[] = [];
        //valido si trae al menos un registro
-       //if(res.rows.length > 0){
+       if(res.rows.length > 0){
         //recorro mi resultado
-       // for(var i=0; i < res.rows.length; i++){
+        for(var i=0; i < res.rows.length; i++){
           //agrego los registros a mi lista
-          //items.push({
-           // id_comuna: res.rows.item(i).id_comuna,
-           // nombre_c: res.rows.item(i).nombre_c,
-         //})
-        //}
+          items.push({
+            id_comuna: res.rows.item(i).id_comuna,
+            nombre_c: res.rows.item(i).nombre_c,
+         })
+        }
         
-       //}
+       }
        //actualizar el observable
-       //this.listadoComuna.next(items as any);
+       this.listadoComuna.next(items as any);
 
-    //})
- // }
-
-
-  //eliminarComuna(id:string){
-    //return this.database.executeSql('DELETE FROM comuna WHERE id_comuna = ?',[id]).then(res=>{
-      //this.presentAlert("Eliminar","Comuna Eliminado");
-      //this.seleccionarComuna();
-    //}).catch(e=>{
-     // this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
-    //})
-  //}
+    })
+  }
 
 
-  //modificarComuna(id:string, nombre: string){
-    //this.presentAlert("service","ID: " + id);
-    //return this.database.executeSql('UPDATE comuna SET nombre_c = ? WHERE id_comuna = ?',[nombre,id]).then(res=>{
-      //this.presentAlert("Modificar","Comuna Modificado");
-      //this.seleccionarComuna();
-    //}).catch(e=>{
-     // this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
-    //})
-
-  //}
+  eliminarComuna(id:string){
+    return this.database.executeSql('DELETE FROM comuna WHERE id_comuna = ?',[id]).then(res=>{
+      this.presentAlert("Eliminar","Comuna Eliminado");
+      this.seleccionarComuna();
+    }).catch(e=>{
+      this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
+    })
+  }
 
 
-  //insertarComuna(id:string, nombre: string){
-    //return this.database.executeSql('INSERT INTO comuna(id,nombre_c) VALUES (?,?)',[id,nombre]).then(res=>{
-      //this.presentAlert("Insertar","Comuna Registrada");
-     // this.seleccionarComuna();
-   // }).catch(e=>{
-      //this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
-    //})
-  //}
+  modificarComuna(id:string, nombre: string){
+    this.presentAlert("service","ID: " + id);
+    return this.database.executeSql('UPDATE comuna SET nombre_c = ? WHERE id_comuna = ?',[nombre,id]).then(res=>{
+      this.presentAlert("Modificar","Comuna Modificado");
+      this.seleccionarComuna();
+    }).catch(e=>{
+      this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
+    })
+
+  }
+
+
+  insertarComuna(id:string, nombre: string){
+    return this.database.executeSql('INSERT INTO comuna(id,nombre_c) VALUES (?,?)',[id,nombre]).then(res=>{
+      this.presentAlert("Insertar","Comuna Registrada");
+      this.seleccionarComuna();
+    }).catch(e=>{
+      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+    })
+  }
 
 
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -600,60 +626,60 @@ export class StorageService {
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   //DIRECCION
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  //seleccionarDireccion(){
-    //return this.database.executeSql('SELECT * FROM Direccion', []).then(res=>{
+  seleccionarDireccion(){
+    return this.database.executeSql('SELECT * FROM Direccion', []).then(res=>{
        //variable para almacenar el resultado de la consulta
-       //let items: Direccion[] = [];
+       let items: Direccion[] = [];
        //valido si trae al menos un registro
-       //if(res.rows.length > 0){
+       if(res.rows.length > 0){
         //recorro mi resultado
-        //for(var i=0; i < res.rows.length; i++){
+        for(var i=0; i < res.rows.length; i++){
           //agrego los registros a mi lista
-          //items.push({
-           // id_direccion: res.rows.item(i).id_direccion,
-           // calle_di: res.rows.item(i).calle_di,
-           // numero_di: res.rows.item(i).numero_di,
-          //})
-        //}
+          items.push({
+            id_direccion: res.rows.item(i).id_direccion,
+            calle_di: res.rows.item(i).calle_di,
+            numero_di: res.rows.item(i).numero_di,
+          })
+        }
         
-       //}
+       }
        //actualizar el observable
-      // this.listadoDireccion.next(items as any);
+       this.listadoDireccion.next(items as any);
 
-    //})
-  //}
-
-
-  //eliminarDireccion(id:string){
-    //return this.database.executeSql('DELETE FROM direccion WHERE id_direccion = ?',[id]).then(res=>{
-      //this.presentAlert("Eliminar","Direccion Eliminado");
-      //this.seleccionarDireccion();
-    //}).catch(e=>{
-      //this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
-    //})
-  //}
+    })
+  }
 
 
-  //modificarDireccion(id:string, calle: string, numero: string){
-   // this.presentAlert("service","ID: " + id);
-    //return this.database.executeSql('UPDATE direccion SET calle_di = ?, numero_di = ? WHERE id_direccion = ?',[calle,numero,id]).then(res=>{
-      //this.presentAlert("Modificar","Direccion Modificado");
-      //this.seleccionarDireccion();
-   // }).catch(e=>{
-      //this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
-    //})
-
-  //}
+  eliminarDireccion(id:string){
+    return this.database.executeSql('DELETE FROM direccion WHERE id_direccion = ?',[id]).then(res=>{
+      this.presentAlert("Eliminar","Direccion Eliminado");
+      this.seleccionarDireccion();
+    }).catch(e=>{
+      this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
+    })
+  }
 
 
-  //insertarDireccion(id:string, calle: string, numero: string){
-    //return this.database.executeSql('INSERT INTO direccion(id,calle_di,numero_di) VALUES (?,?,?)',[id,calle,numero]).then(res=>{
-      //this.presentAlert("Insertar","Direccion Registrada");
-     // this.seleccionarDireccion();
-    //}).catch(e=>{
-      //this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
-    //})
-  //}
+  modificarDireccion(id:string, calle: string, numero: string){
+    this.presentAlert("service","ID: " + id);
+    return this.database.executeSql('UPDATE direccion SET calle_di = ?, numero_di = ? WHERE id_direccion = ?',[calle,numero,id]).then(res=>{
+      this.presentAlert("Modificar","Direccion Modificado");
+      this.seleccionarDireccion();
+    }).catch(e=>{
+      this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
+    })
+
+  }
+
+
+  insertarDireccion(id:string, calle: string, numero: string){
+    return this.database.executeSql('INSERT INTO direccion(id,calle_di,numero_di) VALUES (?,?,?)',[id,calle,numero]).then(res=>{
+      this.presentAlert("Insertar","Direccion Registrada");
+      this.seleccionarDireccion();
+    }).catch(e=>{
+      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+    })
+  }
 
 
   /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
