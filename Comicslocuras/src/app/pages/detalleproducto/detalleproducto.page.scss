@@ -45,7 +45,7 @@ ion-title[size="large"] {
 .product-card {
     background-color: #1e1e1e; /* Fondo negro oscuro para la tarjeta */
     color: #ffffff; /* Texto blanco */
-    border: 8px double #ffb6c1, #ff00ff; /* Borde más grueso con rosa claro (ffb6c1) y rosa fuerte (ff00ff) */
+    border: 8px solid #ec019e; /* Borde grueso rosa claro */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para profundidad */
     margin: 20px 0; /* Espacio alrededor de la tarjeta */
@@ -83,6 +83,7 @@ ion-card-content p {
     color: #ffffff; /* Texto blanco */
     font-size: 1em; /* Tamaño de fuente para el párrafo */
     margin-bottom: 10px; /* Espacio debajo del párrafo */
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Fuente estilo cómic para la descripción */
 }
 
 /* Estilo para los botones */
@@ -105,8 +106,3 @@ ion-button:hover {
     box-shadow: 0 0 20px rgba(255, 0, 255, 1), 0 0 30px rgba(255, 105, 180, 0.8); /* Efecto de brillo intenso */
     transform: scale(1.1); /* Aumenta el tamaño al pasar el mouse */
 }
-
-
-  
-  
-  
