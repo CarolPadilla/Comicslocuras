@@ -22,28 +22,39 @@ export class StorageService {
   public database!: SQLiteObject;
 
   /// Variable creación tablas
-  tablaCategoria: string = "CREATE TABLE IF NOT EXISTS categoria (id_categoria INTEGER PRIMARY KEY, nombre_ca VARCHAR(12));";
-  
-  tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY, cantidad_d INTEGER, total_d INTEGER);";
-  
-  tablaVenta: string = "CREATE TABLE IF NOT EXISTS venta (id_venta INTEGER PRIMARY KEY, fec_venta DATE, carrito_v VARCHAR(9), total_v INTEGER);";
-
   tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY, nombre_r VARCHAR(9));";
-
+  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (nombre_u varchar(250),id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, correo_u VARCHAR(250), clave_u VARCHAR(250), rut_u  VARCHAR(20), fecha_nac VARCHAR(20), foto_u BLOB , token Number, id_rol INTEGER,FOREIGN KEY(id_rol) REFERENCES categoria(id_rol));";
   tablaComuna: string = "CREATE TABLE IF NOT EXISTS comuna (id_comuna INTEGER PRIMARY KEY, nombre_c VARCHAR(9));";
+  tablaDireccion: string = "CREATE TABLE IF NOT EXISTS direccion (id_direccion INTEGER PRIMARY KEY, calle_di VARCHAR(15), numero_di INTEGER,id_comuna INTEGER, id_usuario INTEGER, FOREIGN KEY(id_comuna) REFERENCES comuna(id_comuna), FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario));";
+  tablaCategoria: string = "CREATE TABLE IF NOT EXISTS categoria (id_categoria INTEGER PRIMARY KEY, nombre_ca VARCHAR(12));";
   tablaCrud: string = "CREATE TABLE IF NOT EXISTS crud(idcrud INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(100) NOT NULL, descripcion VARCHAR(250) NOT NULL, imagen BLOB, precio INTEGER NOT NULL, idCategoria INTEGER NOT NULL, FOREIGN KEY(idCategoria) REFERENCES categoria(id_categoria));";
+  tablaVenta: string = "CREATE TABLE IF NOT EXISTS venta (id_venta INTEGER PRIMARY KEY, fec_venta DATE, carrito_v INTEGER, total_v INTEGER, id_usuario INTEGER, id_direccion INTEGER, FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario), FOREIGN KEY(id_direccion) REFERENCES direccion(id_direccion));";
+  tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY, cantidad_d INTEGER, total_d INTEGER, id_venta INTEGER,id_crud INTEGER, FOREIGN KEY(id_venta) REFERENCES venta(id_venta), FOREIGN KEY(id_crud) REFERENCES crud(idcrud));";
   
-  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (nombre_u varchar(250),id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, correo_u VARCHAR(250), clave_u VARCHAR(250), rut_u  VARCHAR(20), fecha_nac VARCHAR(20), foto_u BLOB , token Number);";
-  tablaDireccion: string = "CREATE TABLE IF NOT EXISTS direccion (id_direccion INTEGER PRIMARY KEY, calle_di VARCHAR(15), numero_di INTEGER);";
+  
+
+  
+
+  
+  
+  
+  
+  
   
   // Variables para los insert por defecto en nuestras tablas
-  registroDireccion: string = "INSERT OR IGNORE INTO direccion (id_direccion, calle_di, numero_di) VALUES (1, 'calle 1', 1)";
-  registroComuna: string = "INSERT OR IGNORE INTO comuna (id_comuna, nombre_c) VALUES (1, 'comuna 1')";
-  registroRol: string = "INSERT OR IGNORE INTO rol (id_rol, nombre_r) VALUES (1, 'rol 1')";
-  registroVenta: string = "INSERT OR IGNORE INTO venta (id_venta, fec_venta, carrito_v, total_v) VALUES (1, '2020-01-01', 'carrito 1', 100)";
-  registroDetalle: string = "INSERT OR IGNORE INTO detalle (id_detalle, cantidad_d, total_d) VALUES (1, 1, 100)";
-  registroCategoria: string = "INSERT OR IGNORE INTO categoria (id_categoria, nombre_ca) VALUES (1, 'categoria 1')";
   
+  registroComuna: string = "INSERT OR IGNORE INTO comuna (id_comuna, nombre_c) VALUES (1, 'Huechuraba')";
+  registroComuna2: string = "INSERT OR IGNORE INTO comuna (id_comuna, nombre_c) VALUES (2, 'Lo Espejo')";
+  registroRol: string = "INSERT OR IGNORE INTO rol (id_rol, nombre_r) VALUES (1, 'Cliente')";
+  registroRol2: string = "INSERT OR IGNORE INTO rol (id_rol, nombre_r) VALUES (2, 'Administrador')";
+  
+  registroCategoria: string = "INSERT OR IGNORE INTO categoria (id_categoria, nombre_ca) VALUES (1, 'Comics')";
+  registroCategoria2: string = "INSERT OR IGNORE INTO categoria (id_categoria, nombre_ca) VALUES (2, 'Mangas')";
+  registroCategoria3: string = "INSERT OR IGNORE INTO categoria (id_categoria, nombre_ca) VALUES (3, 'Accesorios')";
+  registroCategoria4: string = "INSERT OR IGNORE INTO categoria (id_categoria, nombre_ca) VALUES (4, 'Peluches')";
+  registroCategoria5: string = "INSERT OR IGNORE INTO categoria (id_categoria, nombre_ca) VALUES (5, 'Funkopop')";
+  
+  resgistroAdmin: string = "INSERT OR IGNORE INTO usuario (nombre_u, correo_u, clave_u, rut_u, fecha_nac, foto_u, token, id_rol) VALUES ('Admin', 'admin@gmail.com', '123456', '1111111111', '2000-01-01', null, null, 2)";
   //variables para guardar los datos de las consultas en las tablas
   listadoCrud = new BehaviorSubject<Crud[]>([]);/*con esto no se necesita hacer registro insert de arriba */
 
@@ -68,13 +79,7 @@ export class StorageService {
 
   constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController) {
     this.createBD() /*creacion de la base de datos*/
-    this.createBDUsuario(); /*creacion de la base de datos*/
-    this.createBDVenta(); /*creacion de la base de datos*/
-    this.createBDCategoria(); /*creacion de la base de datos*/
-    this.createBDComuna(); /*creacion de la base de datos*/
-    this.createBDRol(); /*creacion de la base de datos*/
-    this.createBDDireccion(); /*creacion de la base de datos*/    
-    this.createBDDetalle(); /*creacion de la base de datos*/
+    
 
   }
   
@@ -133,125 +138,42 @@ export class StorageService {
     this.platform.ready().then(() => {
       // Crear la Base de Datos
       this.sqlite.create({
-        name: 'crud.db',
+        name: 'tienda.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         // Capturar la conexión a la BD
         this.database = db;
         // Llamamos a la función para crear las tablas
         this.crearTablas();
+        this.isDBReady.next(true);
       }).catch(e => {
         this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
       });
     });
   }
 
-
-///////////////////////USUARIO
-  createBDUsuario(){
-    this.sqlite.create({
-      name: 'usuario.db',
-      location: 'default'
-    }).then((db: SQLiteObject)=>{
-      this.database = db;
-      this.crearTablas();
-    }).catch(e=>{
-      this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
-    })
-  }
-
-  
-///////////////////////VENTA
-  createBDVenta(){
-    this.sqlite.create({
-      name: 'venta.db',
-      location: 'default'
-    }).then((db: SQLiteObject)=>{
-      this.database = db;
-      this.crearTablas();
-    }).catch(e=>{
-      this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
-    })
-  }
-
-    
-///////////////////////CATEGORIA
-  createBDCategoria(){
-    this.sqlite.create({
-      name: 'categoria.db',
-      location: 'default'
-    }).then((db: SQLiteObject)=>{
-      this.database = db;
-      this.crearTablas();
-    }).catch(e=>{
-      this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
-    })
-  }
-
-  
-///////////////////////COMUNA
-  createBDComuna(){
-    this.sqlite.create({
-      name: 'comuna.db',
-      location: 'default'
-    }).then((db: SQLiteObject)=>{
-      this.database = db;
-      this.crearTablas();
-    }).catch(e=>{
-      this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
-    })
-  }
-
-  
-///////////////////////ROL
-  createBDRol(){
-    this.sqlite.create({
-      name: 'rol.db',
-      location: 'default'
-    }).then((db: SQLiteObject)=>{
-      this.database = db;
-      this.crearTablas();
-    }).catch(e=>{
-      this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
-    })
-  }
-
-  
-///////////////////////DIRECCION
-  createBDDireccion(){
-    this.sqlite.create({
-      name: 'direccion.db',
-      location: 'default'
-    }).then((db: SQLiteObject)=>{
-      this.database = db;
-      this.crearTablas();
-    }).catch(e=>{
-      this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
-    })
-  }
-
-  
-///////////////////////DETALLE
-  createBDDetalle(){
-    this.sqlite.create({
-      name: 'detalle.db',
-      location: 'default'
-    }).then((db: SQLiteObject)=>{
-      this.database = db;
-      this.crearTablas();
-    }).catch(e=>{
-      this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
-    })
-  }
-
   async crearTablas() {
     try {
+      await this.database.executeSql(this.tablaRol, []);
+      await this.database.executeSql(this.tablaUsuario, []);
+      await this.database.executeSql(this.tablaComuna, []);
+      await this.database.executeSql(this.tablaDireccion, []);
       await this.database.executeSql(this.tablaCategoria, []);
       await this.database.executeSql(this.tablaCrud, []);
       await this.database.executeSql(this.tablaVenta, []);
-      await this.database.executeSql(this.tablaRol, []);
-      await this.database.executeSql(this.tablaUsuario, []);
-      this.isDBReady.next(true);
+      await this.database.executeSql(this.tablaDetalle, []);
+      
+      //insertr por defecto
+      await this.database.executeSql(this.registroComuna, []);
+      await this.database.executeSql(this.registroComuna2, []);
+      await this.database.executeSql(this.registroRol, []);
+      await this.database.executeSql(this.registroRol2, []);
+      await this.database.executeSql(this.registroCategoria, []);
+      await this.database.executeSql(this.registroCategoria2, []);
+      await this.database.executeSql(this.registroCategoria3, []);
+      await this.database.executeSql(this.registroCategoria4, []);
+      await this.database.executeSql(this.registroCategoria5, []);
+      await this.database.executeSql(this.resgistroAdmin, []);
     } catch (e) {
       this.presentAlert('Creación de Tablas', 'Error en crear las tablas: ' + JSON.stringify(e));
     }
@@ -259,6 +181,25 @@ export class StorageService {
 
   seleccionarCrud() {
     return this.database.executeSql('SELECT * FROM crud', []).then(res => {
+      let items: Crud[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            idcrud: res.rows.item(i).idcrud,
+            nombre: res.rows.item(i).nombre,
+            descripcion: res.rows.item(i).descripcion,
+            imagen: res.rows.item(i).imagen,
+            precio: res.rows.item(i).precio,
+            idcategoria: res.rows.item(i).idCategoria 
+          });
+        }
+      }
+      this.listadoCrud.next(items);
+    });
+  }
+
+  seleccionarCrudCat(id:any) {
+    return this.database.executeSql('SELECT * FROM crud WHERE idcategoria = ?', [id]).then(res => {
       let items: Crud[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) {
@@ -438,7 +379,7 @@ login(correo:string, clave: string){
 
   
   seleccionarCategoria(){
-    return this.database.executeSql('SELECT * FROM Categoria', []).then(res=>{
+    return this.database.executeSql('SELECT * FROM categoria', []).then(res=>{
        //variable para almacenar el resultado de la consulta
        let items: Categoria[] = [];
        //valido si trae al menos un registro

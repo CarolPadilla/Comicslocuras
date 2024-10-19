@@ -98,7 +98,14 @@ export class AgregarPage {
   categoria!: number;
   mensajeError: string = '';
 
-  constructor(private alertController: AlertController, private bd: StorageService) {}
+  categorias: any;
+
+  constructor(private alertController: AlertController, private bd: StorageService) {
+    //this.bd.seleccionarCategoria();
+    this.bd.fetchCategoria().subscribe(res=>{
+      this.categorias = res;
+    });
+  }
 
   validarPrecio(event: any) {
     const valor = event.target.value;

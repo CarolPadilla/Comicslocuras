@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/servicebd.service';
 
 @Component({
@@ -25,10 +24,19 @@ export class LoginPage implements OnInit {
           iduser: this.valor
         }
       }
+      //cargar los observables de los productos y de las categorias
+      this.bd.seleccionarCategoria();
+      this.bd.seleccionarCrud();
       this.router.navigate(['/home'], navigationExtras);
     }
   }
 
+  //fuincion solo para prueba debe ser eliminada junto con su elemento en html
+  ingresar2(){
+    this.bd.seleccionarCategoria();
+      this.bd.seleccionarCrud();
+      this.router.navigate(['/home']);
+  }
 
   ngOnInit() {
   }

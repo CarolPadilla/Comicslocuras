@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { StorageService } from 'src/app/services/servicebd.service';
 
 @Component({
   selector: 'app-mangas',
@@ -7,7 +8,8 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./mangas.page.scss'],
 })
 export class MangasPage implements OnInit {
-
+  productos: any;
+/*
   productos = [
     {
       id: 1,
@@ -75,8 +77,12 @@ export class MangasPage implements OnInit {
 
     // Añade más productos según sea necesario
   ];
-
-  constructor(private router: Router) { }
+*/
+  constructor(private router: Router, private bd: StorageService) {
+    this.bd.fetchcrud().subscribe(res=>{
+      this.productos = res;
+    });
+   }
 
   ngOnInit() { }
 

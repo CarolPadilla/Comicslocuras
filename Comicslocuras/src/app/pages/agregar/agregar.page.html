@@ -40,19 +40,13 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Página del producto</ion-label>
+      <ion-label position="floating">Categoria del producto</ion-label>
           <!-- [(ngModel)]="pagina" -->
-      <ion-select [(ngModel)]="categoria"   name="pagina" placeholder="Seleccionar página de destino" required>
-        <ion-select-option value="home">Comics</ion-select-option>
-        <ion-select-option value="catalog">Mangas</ion-select-option>
-        <ion-select-option value="details">Funkopop</ion-select-option>
-        <ion-select-option value="accessories">Accesorios</ion-select-option>
-        <ion-select-option value="plushies">Peluches</ion-select-option>
+      <ion-select [(ngModel)]="categoria" name="pagina" placeholder="Seleccione la Categoria" required>
+        <ion-select-option [value]="cat.id_categoria" *ngFor="let cat of categorias">{{cat.nombre_ca}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-button expand="full" style="--background: #ee0a56; --color: white;" (click)="presentAlert()">Agregar</ion-button>
-    <ion-button expand="full" [routerLink]="['/editar']" >Editar</ion-button>
-    <ion-button expand="full" [routerLink]="['/eliminar']" >Eliminar </ion-button>
   </div>
 </ion-content>
