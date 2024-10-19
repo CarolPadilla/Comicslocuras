@@ -96,6 +96,7 @@ productos = [
     // Añadir más productos aquí
   ];
 
+  //se agregaron cosas
   constructor(private router: Router) { }
 
   ngOnInit() { }
