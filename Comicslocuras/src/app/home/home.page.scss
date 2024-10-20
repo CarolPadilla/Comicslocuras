@@ -21,10 +21,21 @@ ion-title {
   align-items: center;
 }
 
+/* Estilo específico para el texto "ComicsLocuras" */
+.pink-title {
+  color: #FF00FF; /* Color rosa fuerte */
+}
+
+/* Logo */
 .logo {
   max-width: 40px;
   margin-right: 10px;
   vertical-align: middle;
+}
+
+/* Íconos en rosa */
+.pink-icon {
+  color: #FF00FF; /* Color rosa fuerte para los íconos */
 }
 
 /* Introducción centrada */
@@ -84,19 +95,21 @@ ion-card-content {
   max-width: 100%;
 }
 
-/* Botones */
-.buttons-container {
-  display: grid; /* Cambia a grid para mejor distribución */
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Acomoda los botones en varias columnas según el espacio disponible */
-  gap: 10px;
-  max-height: 300px; /* Limita la altura si es necesario */
-  overflow-y: auto; /* Habilita el scroll vertical */
+/* Estilo para botones de categorías */
+.models-section ion-button {
+  background-color: #FF00FF; /* Fondo rosa fuerte */
+  color: #ffffff; /* Texto blanco */
+  font-size: 1.2em; /* Tamaño de fuente mayor */
+  border: 2px solid #FF00FF; /* Borde rosa */
+  border-radius: 15px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+  margin: 10px 0; /* Espaciado vertical */
+  transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
 }
 
-.buttons-container ion-button {
-  background-color: #0a243f;
-  color: #ffffff;
-  font-size: 1em;
-  border-radius: 5px;
-  padding: 10px 20px;
+.models-section ion-button:hover {
+  background-color: #ff1493; /* Fondo rosa más oscuro al pasar el mouse */
+  transform: scale(1.05); /* Aumenta el tamaño al pasar el mouse */
 }
+
+

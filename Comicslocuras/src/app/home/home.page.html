@@ -1,3 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="assets/icon/Logo.png" alt="logo" class="logo" />
+      <ion-icon name="book" class="pink-icon"></ion-icon>
+      <span class="pink-title">ComicsLocuras</span>
+      <ion-icon name="book" class="pink-icon"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true" class="ion-padding">
   <!-- Introducción -->
   <section class="intro-section">
@@ -5,13 +19,13 @@
       <ion-row>
         <ion-col>
           <h1><ion-icon name="flash-outline"></ion-icon>Bienvenidos a ComicsLocuras <ion-icon name="flash-outline"></ion-icon></h1>
-          <p>Vuelvete loco con todos los comics recomendados unicamente para ti.</p>
+          <p>Vuelvete loco con todos los comics recomendados únicamente para ti.</p>
         </ion-col>
       </ion-row>
     </ion-grid>
   </section>
 
-  <!-- Tarjeta  que muestra información sobre un manga o comics -->
+  <!-- Tarjeta que muestra información sobre un manga o comics -->
   <ion-card class="highlight-card">
     <ion-grid>
       <ion-row>
@@ -23,7 +37,6 @@
             <ion-card-title>Boruto</ion-card-title>
             <ion-card-subtitle>Naruto Next Generations es un manga creado por Masashi Kishimoto y Mikio Ikemoto. La historia sigue a Boruto Uzumaki, el hijo del séptimo Hokage, Naruto Uzumaki.</ion-card-subtitle>
           </ion-card-header>
-          <!-- Contenido de la tarjeta  muestra el precio -->
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -64,3 +77,4 @@
     </ion-toolbar>
   </ion-footer>
 </ion-content>
+
