@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
 
 import { CarritocomprasPageRoutingModule } from './carritocompras-routing.module';
 
-import { CarritocompraPage } from './carritocompras.page';
+import { CarritoComprasPage } from './carritocompras.page'; // Cambiar a CarritoComprasPage
 
 @NgModule({
   imports: [
@@ -15,6 +14,6 @@ import { CarritocompraPage } from './carritocompras.page';
     IonicModule,
     CarritocomprasPageRoutingModule
   ],
-  declarations: [CarritocompraPage]
+  declarations: [CarritoComprasPage] // Cambiar a CarritoComprasPage
 })
 export class CarritocomprasPageModule {}

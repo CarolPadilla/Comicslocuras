@@ -1,43 +1,67 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular'; // Importa AlertController
 
 @Component({
   selector: 'app-carritocompras',
   templateUrl: './carritocompras.page.html',
   styleUrls: ['./carritocompras.page.scss'],
 })
-export class CarritocompraPage {
-  // Lista de productos en el carrito
-  cartItems = [
-    {
-      name: 'Producto 1',
-      price: 10,
-      quantity: 1,
-      image: 'assets/img/product1.jpg',
-    },
-    {
-      name: 'Producto 2',
-      price: 15,
-      quantity: 2,
-      image: 'assets/img/product2.jpg',
-    },
-  ];
+export class CarritoComprasPage implements OnInit {
+  cart: any[] = []; // Inicialización del carrito
 
-  // Calcular el total del carrito
-  get total(): number {
-    return this.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private alertController: AlertController // Inyecta AlertController
+  ) {}
 
-  // Método para eliminar un item del carrito
-  removeItem(item: any) {
-    const index = this.cartItems.indexOf(item);
-    if (index > -1) {
-      this.cartItems.splice(index, 1);
+  ngOnInit() {
+    // Acceder al estado de navegación
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras && navigation.extras['state']) {
+      this.cart = navigation.extras['state']['cart'] || []; // Acceso usando notación de índice
     }
   }
 
-  // Método para finalizar la compra
-  checkout() {
-    alert('Compra finalizada. ¡Gracias por tu compra!');
-    this.cartItems = []; // Vaciar el carrito
+  addToCart(product: any) {
+    const existingProduct = this.cart.find(item => item.nombre === product.nombre);
+    if (existingProduct) {
+      existingProduct.quantity += 1; // Incrementa la cantidad si ya existe
+    } else {
+      this.cart.push({ ...product, quantity: 1 }); // Agrega el producto con cantidad 1
+    }
+  }
+
+  removeFromCart(product: any) {
+    this.cart = this.cart.filter(item => item.nombre !== product.nombre);
+  }
+
+  clearCart() {
+    this.cart = []; // Vacía el carrito
+  }
+
+  getTotal() {
+    return this.cart.reduce((acc, product) => acc + (product.precio * (product.quantity || 1)), 0);
+  }
+
+  goToCart() {
+    this.router.navigate(['/carritocompras'], {
+      state: { cart: this.cart } // Pasa el carrito al navegar
+    });
+  }
+
+  // Función para mostrar la alerta de compra exitosa
+  async finalizarCompra() {
+    const alert = await this.alertController.create({
+      header: 'Compra exitosa',
+      message: 'Gracias por su compra',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+    
+    // Después de mostrar la alerta, limpiar el carrito
+    this.clearCart();
   }
 }

@@ -45,6 +45,7 @@ export class StorageService {
   
   registroComuna: string = "INSERT OR IGNORE INTO comuna (id_comuna, nombre_c) VALUES (1, 'Huechuraba')";
   registroComuna2: string = "INSERT OR IGNORE INTO comuna (id_comuna, nombre_c) VALUES (2, 'Lo Espejo')";
+  
   registroRol: string = "INSERT OR IGNORE INTO rol (id_rol, nombre_r) VALUES (1, 'Cliente')";
   registroRol2: string = "INSERT OR IGNORE INTO rol (id_rol, nombre_r) VALUES (2, 'Administrador')";
   

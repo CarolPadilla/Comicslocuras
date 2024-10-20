@@ -1,18 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <!--icono de hamburguesa-->
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <!-- Título de la página que incluye un logo y un icono -->
-    <ion-title>
-      <img src="assets/img/logo.jpg" alt="ComicsLocuras Logo" class="logo">
-      ComicsLocuras
-      <ion-icon name="home"></ion-icon>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true" class="ion-padding">
   <!-- Introducción -->
   <section class="intro-section">
@@ -27,7 +12,7 @@
   </section>
 
   <!-- Tarjeta  que muestra información sobre un manga o comics -->
-  <ion-card class="highlight-card" >
+  <ion-card class="highlight-card">
     <ion-grid>
       <ion-row>
         <ion-col size="12" size-md="6">
@@ -44,33 +29,35 @@
     </ion-grid>
   </ion-card>
 
-  <!-- categoria  -->
+  <!-- Categorías -->
   <section class="models-section">
     <ion-grid>
-      <!-- Título  -->
+      <!-- Título -->
       <ion-row>
         <ion-col>
           <h2>¿Buscas un Manga o Comics en específico?</h2>
           <p>Elige entre nuestras categorías.</p>
         </ion-col>
       </ion-row>
-      <!---imagen decorativa pa que se vea mas lindo-->
+      
+      <!-- Botones de categorías -->
       <ion-row>
         <ion-col size="12">
-          <img alt="Superman" src="https://th.bing.com/th/id/OIP.1lhn-gpIUoJzYJNMPPC2WQHaLZ?rs=1&pid=ImgDetMain" />
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col class="buttons-container" size="12">
-          <!--botones de manga o de comics -->
-          <ion-button shape="round" expand="full" (click)="irCategoria(manga)" *ngFor="let manga of categorias">{{ manga.nombre_ca }}</ion-button><br>
-          <!--<ion-button shape="round" expand="full" routerLink="/comics">Comics</ion-button>-->
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-md="6" *ngFor="let manga of categorias">
+                <ion-button shape="round" expand="block" (click)="irCategoria(manga)">
+                  {{ manga.nombre_ca }}
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-col>
       </ion-row>
     </ion-grid>
   </section>
 
-  <!-- pie de pagina -->
+  <!-- Pie de página -->
   <ion-footer collapse="fade">
     <ion-toolbar>
       <ion-title>ComicsLocuras</ion-title>

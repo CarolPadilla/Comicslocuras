@@ -22,11 +22,16 @@
             <ion-card-content>
               <p>{{ producto.descripcion }}</p>
               <!-- Utilización de ID del producto -->
-              <ion-button expand="full" color="primary">Comprar</ion-button>
+              <ion-button expand="full" color="primary" (click)="addToCart(producto)">Añadir al carrito</ion-button>
+              <ion-button expand="full" color="danger" (click)="removeFromCart(producto)">Eliminar del carrito</ion-button>
             </ion-card-content>
           </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
+    <!-- Botón para vaciar el carrito -->
+    <ion-button expand="full" color="danger" (click)="clearCart()">Vaciar carrito</ion-button>
+    <!-- Botón para ir al carrito -->
+    <ion-button expand="full" color="secondary" (click)="goToCart()">Ir al carrito ({{ cart.length }})</ion-button>
   </section>
 </ion-content>

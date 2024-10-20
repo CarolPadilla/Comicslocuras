@@ -22,7 +22,7 @@ export class RegistroPage implements OnInit {
   ngOnInit() { }
 
   // Método para mostrar una alerta de éxito al registrar al usuario
-  async presentAlert() {
+  /*async presentAlert() {
     const alert = await this.alertController.create({
       header: 'REGISTRO',
       message: '¡Registrado con éxito!',
@@ -31,7 +31,7 @@ export class RegistroPage implements OnInit {
 
     await alert.present();
   }
-
+*/
   // Método para registrar al usuario, valida los datos y muestra una alerta de éxito
   registrar() {
     if (this.formularioValido()) {
